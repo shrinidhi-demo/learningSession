@@ -1,0 +1,16 @@
+name: Print How Are You
+
+on:
+  workflow_run:
+    workflows: ["Print Hello World"]
+    types:
+      - completed
+
+jobs:
+  print-how-are-you:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print How Are You
+        run: |
+          echo "How are you?"
