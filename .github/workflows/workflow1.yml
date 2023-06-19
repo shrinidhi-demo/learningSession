@@ -1,0 +1,20 @@
+name: Workflow 1
+
+on:
+  workflow_dispatch:
+    inputs:
+      input1:
+        description: 'Input 1'
+        required: true
+      input2:
+        description: 'Input 2'
+        required: true
+
+jobs:
+  workflow1_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1
+        run: echo "Input 1: ${{ github.event.inputs.input1 }}"
+      - name: Step 2
+        run: echo "Input 2: ${{ github.event.inputs.input2 }}"
