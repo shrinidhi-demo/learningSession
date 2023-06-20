@@ -1,38 +1,25 @@
-name: Workflow 1
-
+name: Check Java Installation
 on:
   workflow_dispatch:
     inputs:
-      name:
-        description: 'Your name'
+      java-version:
+        description: 'Java version to check'
         required: true
-  workflow_run:
-    workflows: [Workflow 2]
-    types:
-      - completed
+        default: '11'
 
 jobs:
-  Workflow_1_job:
+  check-java:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Say Hello
-        run: echo "Hello, ${{ github.event.inputs.name }}!"
-        
-      - name: Install octokit
-        run: npm install @octokit/rest
-        
-      - name: Trigger Workflow 2
-        uses: actions/github-script@v4
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const resp = await octokit.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'Workflow 2',
-              ref: context.sha,
-              inputs: {
-                inputFromWorkflow1: 'Value from Workflow 1'
-              }
-            });
-            console.log(resp);
+          java-version: ${{ github.event.inputs.java-version }}
+          distribution: 'adopt'
+
+      - name: Check Java version
+        run: java -version
