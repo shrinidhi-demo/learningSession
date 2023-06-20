@@ -6,6 +6,10 @@ on:
       name:
         description: 'Your name'
         required: true
+  workflow_run:
+    workflows: [Workflow 2]
+    types:
+      - completed
 
 jobs:
   Workflow_1_job:
@@ -13,6 +17,10 @@ jobs:
     steps:
       - name: Say Hello
         run: echo "Hello, ${{ github.event.inputs.name }}!"
+        
+      - name: Install octokit
+        run: npm install @octokit/rest
+        
       - name: Trigger Workflow 2
         uses: actions/github-script@v4
         with:
@@ -24,7 +32,7 @@ jobs:
               workflow_id: 'Workflow 2',
               ref: context.sha,
               inputs: {
-                name: '${{ github.event.inputs.name }}'
+                inputFromWorkflow1: 'Value from Workflow 1'
               }
             });
             console.log(resp);
