@@ -21,7 +21,7 @@ jobs:
             const resp = await octokit.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: '<workflow2_workflow_id>',  # Replace with the workflow ID of Workflow 2
+              workflow_id: 'Workflow 2',
               ref: context.sha,
               inputs: {
                 name: '${{ github.event.inputs.name }}'
