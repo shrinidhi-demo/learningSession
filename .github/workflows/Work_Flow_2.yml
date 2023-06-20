@@ -7,12 +7,16 @@ on:
       - completed
 
 jobs:
-  print-message:
+  job1:
     runs-on: ubuntu-latest
 
     steps:
       - name: Print Java Installed Message
         run: echo "Yes, Java is installed!"
+        
+  job2:
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Trigger Workflow 1 Again
