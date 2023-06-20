@@ -1,6 +1,7 @@
 name: Check Java Installation
 on:
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   work-flow-1:
