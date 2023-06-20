@@ -1,11 +1,10 @@
 name: Workflow 2
 
 on:
-  workflow_dispatch:
-    inputs:
-      name:
-        description: 'Your name'
-        required: true
+  workflow_run:
+    workflows: [Workflow 1]
+    types:
+      - completed
 
 jobs:
   workflow2_job:
@@ -13,3 +12,19 @@ jobs:
     steps:
       - name: Say I'm Fine
         run: echo "Yes, I'm fine, ${{ github.event.inputs.name }}!"
+        
+      - name: Trigger Workflow 1
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const resp = await octokit.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'Workflow 1',  # Replace with the workflow ID of Workflow 1
+              ref: context.sha,
+              inputs: {
+                name: 'Value from Workflow 2'
+              }
+            });
+            console.log(resp);
