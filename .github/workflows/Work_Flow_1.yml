@@ -1,4 +1,4 @@
-name: Check Java Installation
+name: Work_Flow_1
 on:
   workflow_dispatch:
   workflow_call:
