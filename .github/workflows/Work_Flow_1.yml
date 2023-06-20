@@ -22,7 +22,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Check Java version
-        run: echo "::set-output name=java_installed::true"      
+        run: echo "java_installed=true" >> $GITHUB_OUTPUT      
         if: success()
 
       - name: Run Workflow 2
