@@ -13,3 +13,18 @@ jobs:
     steps:
       - name: Say Hello
         run: echo "Hello, ${{ github.event.inputs.name }}!"
+      - name: Trigger Workflow 2
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const resp = await octokit.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: '<workflow2_workflow_id>',  # Replace with the workflow ID of Workflow 2
+              ref: context.sha,
+              inputs: {
+                name: '${{ github.event.inputs.name }}'
+              }
+            });
+            console.log(resp);
