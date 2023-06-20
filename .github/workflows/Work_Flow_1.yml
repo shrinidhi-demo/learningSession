@@ -22,4 +22,9 @@ jobs:
           distribution: 'adopt'
 
       - name: Check Java version
-        run: java -version
+        run: echo "::set-output name=java_installed::true"      
+        if: success()
+
+      - name: Run Workflow 2
+        if: ${{ needs.check-java.outputs.java_installed == 'true' }}
+        uses: ./.github/workflows/workflow2.yml
