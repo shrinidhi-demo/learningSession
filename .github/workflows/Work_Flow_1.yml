@@ -1,30 +1,17 @@
 name: Check Java Installation
 on:
   workflow_dispatch:
-    inputs:
-      java-version:
-        description: 'Java version to check'
-        required: true
-        default: '11'
 
 jobs:
-  check-java:
+  work-flow-1:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: ${{ github.event.inputs.java-version }}
-          distribution: 'adopt'
-
-      - name: Check Java version
-        run: echo "java_installed=true" >> $GITHUB_OUTPUT      
-        if: success()
-
-      - name: Run Workflow 2
-        if: ${{ needs.check-java.outputs.java_installed == 'true' }}
-        uses: ./.github/workflows/workflow2.yml
+      - name: Print message
+      - run: echo "Work FLow 1"
+      
+  trigger-workflow1:
+   needs: work-flow-1
+   uses: ./.github/workflows/Work_Flow_2.yml
