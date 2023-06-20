@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Print message
-      - run: echo "Work FLow 1"
+        run: echo "Work FLow 1"
       
   trigger-workflow1:
    needs: work-flow-1
