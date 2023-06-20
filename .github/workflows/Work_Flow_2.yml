@@ -1,4 +1,4 @@
-name: Workflow 2 - Print Java Installed Message
+name: Work_Flow-2
 
 on:
   workflow_call:
