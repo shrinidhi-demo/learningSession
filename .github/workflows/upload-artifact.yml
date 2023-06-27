@@ -1,6 +1,11 @@
 name: Upload Artifact
 
 on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Your name'
+        required: true
   push:
     branches:
       - main
