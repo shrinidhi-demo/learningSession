@@ -1,0 +1,28 @@
+name: Upload Artifact
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Build artifact
+      run: |
+        # Build your artifact here
+        echo "Building artifact..."
+        mkdir -p artifacts
+        touch artifacts/my-artifact.txt
+        echo "This is my artifact" > artifacts/my-artifact.txt
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: my-artifact
+        path: artifacts
